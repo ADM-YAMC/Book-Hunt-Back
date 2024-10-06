@@ -6,6 +6,23 @@ Book-Hunt-Back es una aplicación backend que utiliza la arquitectura Onion con 
 
 El proyecto sigue la arquitectura Onion y está dividido en las siguientes capas:
 
+1. **DomainLayer**:
+   - Esta capa contiene la lógica de negocio y las entidades principales del dominio de la aplicación. Define las reglas del negocio sin tener dependencias en otras capas.
+   - Aquí encontrarás las clases que representan los modelos de datos (`Book`, `Category`, `Author`, etc.) y sus relaciones.
+   
+2. **RepositoryLayer**:
+   - Esta capa maneja la interacción con la base de datos. Implementa los repositorios que permiten acceder y modificar los datos del dominio.
+   - Está encargada de implementar los patrones de repositorio y unidad de trabajo, lo que permite realizar operaciones sobre las entidades de la base de datos sin exponer la lógica de persistencia directamente.
+   - Utiliza **Entity Framework Core** para el acceso a la base de datos.
+
+3. **ApplicationLayer**:
+   - Contiene la lógica de la aplicación y los servicios que orquestan el trabajo entre la capa de dominio y las interfaces de usuario o clientes externos.
+   - Aquí se encuentran los servicios de la aplicación que ejecutan las operaciones del negocio usando los repositorios de la capa de datos, así como los casos de uso y las validaciones.
+   
+4. **BookHunt (UI o Capa de Presentación)**:
+   - Es la capa más externa de la aplicación, responsable de interactuar con el mundo exterior, ya sea a través de APIs o interfaces de usuario.
+   - Aquí se define la API REST que expone los servicios de la aplicación a los clientes externos.
+   - Esta capa también contiene la configuración de la aplicación y el punto de entrada (`Program.cs` y `Startup.cs`).
 
 Cada capa tiene su propia responsabilidad, facilitando la separación de preocupaciones y asegurando una arquitectura robusta y escalable.
 

@@ -19,10 +19,10 @@ El proyecto sigue la arquitectura Onion y está dividido en las siguientes capas
    - Contiene la lógica de la aplicación y los servicios que orquestan el trabajo entre la capa de dominio y las interfaces de usuario o clientes externos.
    - Aquí se encuentran los servicios de la aplicación que ejecutan las operaciones del negocio usando los repositorios de la capa de datos, así como los casos de uso y las validaciones.
    
-4. **BookHunt (UI o Capa de Presentación)**:
+4. **BookHunt (UI o Capa de presentación)**:
    - Es la capa más externa de la aplicación, responsable de interactuar con el mundo exterior, ya sea a través de APIs o interfaces de usuario.
    - Aquí se define la API REST que expone los servicios de la aplicación a los clientes externos.
-   - Esta capa también contiene la configuración de la aplicación y el punto de entrada (`Program.cs` y `Startup.cs`).
+   - Esta capa también contiene la configuración de la aplicación y el punto de entrada (`Program.cs`).
 
 Cada capa tiene su propia responsabilidad, facilitando la separación de preocupaciones y asegurando una arquitectura robusta y escalable.
 

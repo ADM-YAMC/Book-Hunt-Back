@@ -133,8 +133,8 @@ Donde `<tu_token_jwt>` es el token que obtuviste al autenticarte.
 
 Los siguientes dos endpoints no requieren autenticación, ya que son necesarios para crear el primer usuario administrador y asignarle un rol:
 
-- `POST /api/user/AddUser`: Crea el primer usuario de la aplicación.
-- `POST /api/role/AddRole`: Crea los roles iniciales necesarios para la gestión de usuarios.
+- `POST /api/Users`: Crea el primer usuario de la aplicación.
+- `POST /api/Role`: Crea los roles iniciales necesarios para la gestión de usuarios.
 
 ## Estructura de las respuestas
 
@@ -215,6 +215,53 @@ Para obtener un token JWT válido, debes autenticarte enviando una solicitud al 
 ### Ejemplo de cabecera con token JWT
 
  ```bash
-GET /api/books
+GET /api/book
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
    ```
+## EndPoint
+
+### Autenticación
+
+Para autenticarnos en la aplicación debemos usar el siguiente endpoint:
+- `POST api/Auth/login`
+Se debe enviar la siguiente solicitud:
+ ```json
+{
+  "email": "string",
+  "password": "string"
+}
+```
+Este nos responderá de la siguiente forma si el resultado fue exitoso:
+
+ ```json
+{
+  "dataList": [],
+  "singleData": {
+    "id": 2,
+    "name": "Alexander",
+    "lastName": "Moreta",
+    "email": "alexander@moreta.com",
+    "roleId": 2,
+    "roleName": "Administrador",
+    "isActive": true,
+    "token": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3ht..."
+  },
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": true,
+  "message": null,
+  "errors": []
+}
+```
+En caso contrario:
+```json
+{
+  "dataList": [],
+  "singleData": null,
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": false,
+  "message": "El usuario o la contraseña son incorrectos...",
+  "errors": []
+}
+```

@@ -345,3 +345,85 @@ Nos dará la respuesta genérica en caso de ser o no exitoso.
 Nos dará la respuesta genérica en caso de ser o no exitoso.
 - `DELETE /api/Author/{id}`: Nos permite eliminar un autor. Solo debemos de pasar su identificador único `authorId`.
 
+## Libros
+
+### Obtener todos los libros
+
+Nos retorna un arreglo de todos los libros con los autores y las categorías a las que pertenece el libro.
+
+**Método:** `GET`  
+**Endpoint:** `/api/Book`
+Nos retornará algo similar a:
+```json
+{
+  "dataList": [
+    {
+      "bookId": 1,
+      "title": "La monja 2",
+      "description": "Aventura",
+      "publicationDate": "2024-10-05T23:22:06.889",
+      "isActive": true,
+      "authors": [
+        {
+          "authorId": 1,
+          "name": "Yunior Moreta",
+          "isActive": true
+        }
+      ],
+      "categories": [
+        {
+          "categoryId": 1,
+          "name": "Terror",
+          "isActive": true
+        },
+        {
+           ...
+        }
+      ]
+    },
+    {
+      ...
+    }
+  ],
+  "singleData": null,
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": true,
+  "message": null,
+  "errors": []
+}
+```
+### Guardar un libro
+
+Para agregar un nuevo libro a la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `POST`  
+**Endpoint:** `/api/Book`
+
+#### Parámetros
+
+- **Request Body**: Debe enviarse en formato JSON con la siguiente estructura:
+
+```json
+{
+  "title": "string",                  // Título del libro
+  "description": "string",            // Descripción del libro
+  "publicationDate": "2024-10-07T01:18:08.333Z", // Fecha de publicación del libro (formato yyyy-MM-dd)
+  "isActive": true,                   // Indica si el libro está activo (true) o inactivo (false)
+  "authorIds": [                      // Lista de identificadores de autores asociados al libro
+    0                                 // Ejemplo: id del autor
+  ],
+  "categoryIds": [                    // Lista de identificadores de categorías asociadas al libro
+    0                                 // Ejemplo: id de la categoría
+  ]
+}
+```
+
+| Campo            | Tipo de dato | Descripción                                          |
+|------------------|--------------|-----------------------------------------------------|
+| `title`          | String       | Título del libro.                                   |
+| `description`    | String       | Descripción del libro.                              |
+| `publicationDate`| DateTime     | Fecha de publicación del libro (formato yyyy-MM-dd). |
+| `isActive`       | Boolean      | Indica si el libro está activo (true) o inactivo (false). |
+| `authorIds`      | Array        | Lista de identificadores de autores asociados al libro. |
+| `categoryIds`    | Array        | Lista de identificadores de categorías asociadas al libro. |

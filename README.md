@@ -111,3 +111,104 @@ Para compilar el proyecto nuevamente:
 ---
 
 Con esta configuración, deberías tener tu aplicación **Book-Hunt-Back** corriendo correctamente y con la base de datos lista para funcionar.
+
+---
+
+# Documentación para el consumo de la API
+
+La API de **Book-Hunt-Back** está diseñada para gestionar el backend de la aplicación. Se utiliza **JWT (JSON Web Token)** para la autorización, lo que significa que la mayoría de las peticiones deben estar autenticadas con un token Bearer. En este documento se detallan los pasos para consumir la API, los endpoints disponibles, y cómo interpretar las respuestas del servidor.
+
+## Autorización con JWT
+
+Para consumir cualquier endpoint de la API, es necesario incluir el token de autorización en el encabezado de la solicitud, excepto en los dos endpoints abiertos mencionados a continuación. Este token se obtiene luego de un proceso de autenticación en la aplicación.
+
+El encabezado debe tener el siguiente formato:
+
+Authorization: Bearer `<tu_token_jwt>`
+
+
+Donde `<tu_token_jwt>` es el token que obtuviste al autenticarte.
+
+### Endpoints sin autorización
+
+Los siguientes dos endpoints no requieren autenticación, ya que son necesarios para crear el primer usuario administrador y asignarle un rol:
+
+- `POST /api/user/AddUser`: Crea el primer usuario de la aplicación.
+- `POST /api/role/AddRole`: Crea los roles iniciales necesarios para la gestión de usuarios.
+
+## Estructura de las respuestas
+
+Todas las respuestas del servidor seguirán un formato estándar que se presenta de la siguiente manera:
+
+```json
+{
+  "dataList": [],
+  "singleData": {},
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": false,
+  "message": ".",
+  "errors": []
+}
+```
+### dataList
+
+- **Tipo:** Array (Lista de objetos)
+- **Descripción:** Contiene una lista de objetos de datos, generalmente usada cuando la consulta devuelve múltiples resultados. Si la operación no devuelve una lista, este campo estará vacío.
+- **Ejemplo:**
+  ```json
+  "dataList": [
+    { "id": 1, "name": "Book1" },
+    { "id": 2, "name": "Book2" }
+  ]
+```
+###singleData
+-**Tipo:** Objeto
+- **Descripción:** Contiene un único objeto de datos cuando la operación afecta o devuelve solo un registro específico. Si no se devuelve un objeto específico, este campo será un objeto vacío.
+- **Ejemplo:**
+ ```json
+"singleData": {
+  "id": 1,
+  "name": "Book1"
+}
+```
+###thereIsError
+-**Tipo:** Booleano
+- **Descripción:** Indica si hubo algún error durante el procesamiento de la solicitud. Si es true, ocurrió un error; si es false, la operación se ejecutó correctamente en términos técnicos.
+- **Ejemplo:**
+ ```json
+"thereIsError": false
+```
+###entityId
+-**Tipo:** Entero (Integer)
+- **Descripción:** Contiene el identificador de la entidad que se creó, modificó o afectó en una operación exitosa. Si no se ha afectado a una entidad específica, este valor será 0.
+- **Ejemplo:**
+ ```json
+"entityId": 15
+```
+###message
+-**Tipo:** Cadena de texto (String)
+- **Descripción:** Proporciona un mensaje descriptivo sobre el resultado de la operación. Puede ser una confirmación de éxito, un mensaje informativo o una descripción del error.
+- **Ejemplo:**
+ ```json
+"message": "La operación se completó exitosamente."
+```
+###errors
+-**Tipo:** Array (Lista de cadenas de texto)
+- **Descripción:** Contiene una lista de errores que ocurrieron durante la solicitud. Cada error en la lista explica qué salió mal. Si thereIsError es false, este array estará vacío.
+- **Ejemplo:**
+ ```json
+"errors": [
+  "El nombre del libro es obligatorio.",
+  "El formato del ISBN no es válido."
+]
+```
+##Autenticación y autorizaciones
+###Obtener el token JWT
+Para obtener un token JWT válido, debes autenticarte enviando una solicitud al endpoint de autenticación con las credenciales de usuario. La respuesta contendrá el token que deberás usar en las cabeceras de las siguientes peticiones.
+
+###Ejemplo de cabecera con token JWT
+ ```bash
+GET /api/books
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+   ```

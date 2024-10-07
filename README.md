@@ -162,9 +162,9 @@ Todas las respuestas del servidor seguirán un formato estándar que se presenta
     { "id": 2, "name": "Book2" }
   ]
    ```
-###singleData
+### singleData
 
--**Tipo:** Objeto
+- **Tipo:** Objeto
 - **Descripción:** Contiene un único objeto de datos cuando la operación afecta o devuelve solo un registro específico. Si no se devuelve un objeto específico, este campo será un objeto vacío.
 - **Ejemplo:**
  ```json
@@ -173,15 +173,15 @@ Todas las respuestas del servidor seguirán un formato estándar que se presenta
   "name": "Book1"
 }
 ```
-###thereIsError
+### thereIsError
 
--**Tipo:** Booleano
+- **Tipo:** Booleano
 - **Descripción:** Indica si hubo algún error durante el procesamiento de la solicitud. Si es true, ocurrió un error; si es false, la operación se ejecutó correctamente en términos técnicos.
 - **Ejemplo:**
  ```json
 "thereIsError": false
    ```
-###entityId
+### entityId
 
 -**Tipo:** Entero (Integer)
 - **Descripción:** Contiene el identificador de la entidad que se creó, modificó o afectó en una operación exitosa. Si no se ha afectado a una entidad específica, este valor será 0.
@@ -189,14 +189,14 @@ Todas las respuestas del servidor seguirán un formato estándar que se presenta
  ```json
 "entityId": 15
  ```
-###message
+### message
 -**Tipo:** Cadena de texto (String)
 - **Descripción:** Proporciona un mensaje descriptivo sobre el resultado de la operación. Puede ser una confirmación de éxito, un mensaje informativo o una descripción del error.
 - **Ejemplo:**
  ```json
 "message": "La operación se completó exitosamente."
    ```
-###errors
+### errors
 -**Tipo:** Array (Lista de cadenas de texto)
 - **Descripción:** Contiene una lista de errores que ocurrieron durante la solicitud. Cada error en la lista explica qué salió mal. Si thereIsError es false, este array estará vacío.
 - **Ejemplo:**
@@ -206,13 +206,13 @@ Todas las respuestas del servidor seguirán un formato estándar que se presenta
   "El formato del ISBN no es válido."
 ]
    ```
-##Autenticación y autorizaciones
+## Autenticación y autorizaciones
 
-###Obtener el token JWT
+### Obtener el token JWT
 
 Para obtener un token JWT válido, debes autenticarte enviando una solicitud al endpoint de autenticación con las credenciales de usuario. La respuesta contendrá el token que deberás usar en las cabeceras de las siguientes peticiones.
 
-###Ejemplo de cabecera con token JWT
+### Ejemplo de cabecera con token JWT
 
  ```bash
 GET /api/books

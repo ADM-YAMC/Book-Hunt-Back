@@ -281,4 +281,54 @@ Este retornara:
   "errors": []
 }
 ```
+## Author
+- `GET /api/Author: ` Obtiene a todos los autores:
+```json
+{
+  "dataList": [
+    {
+      "authorId": 1,
+      "name": "Yunior",
+      "lastName": "Moreta",
+      "isActive": true,
+      "books": null
+    },
+    {
+      "authorId": 2,
+      "name": "Alexander",
+      "lastName": "Carrera",
+      "isActive": true,
+      "books": null
+    }
+  ],
+  "singleData": null,
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": true,
+  "message": null,
+  "errors": []
+}
+```
+- `**POST /api/Author**` : Nos sirve para guardar un autor. Solo debemos enviar el siguiente json:
+```json
+{
+  "name": "string",
+  "lastName": "string",
+  "isActive": true 
+}
+```
+Nos dará la respuesta genérica en caso de ser o no exitoso.
+- `**GET /api/Author/{id}**`: Busca a un autor por su identificador único `authorId`.
+- `**PUT /api/Author/{id}**` Actualiza el autor. Debemos enviar el siguiente request body:
+`PUT /api/Author/1`
+```json
+{
+      "authorId": 1,
+      "name": "Yunior",
+      "lastName": "Carreras",
+      "isActive": true
+    }
+```
+Nos dará la respuesta genérica en caso de ser o no exitoso.
+- `**DELETE /api/Author/{id}**`: Nos permite eliminar un autor. Solo debemos de pasar su identificador único `authorId`.
 

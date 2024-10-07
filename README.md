@@ -331,7 +331,7 @@ Este retornara:
 }
 ```
 Nos dará la respuesta genérica en caso de ser o no exitoso.
-- `GET /api/Author/{id}**`: Busca a un autor por su identificador único `authorId`.
+- `GET /api/Author/{id}`: Busca a un autor por su identificador único `authorId`.
 - `PUT /api/Author/{id}` Actualiza el autor. Debemos enviar el siguiente request body:
 `/api/Author/1`
 ```json
@@ -393,6 +393,48 @@ Nos retornará algo similar a:
   "errors": []
 }
 ```
+### Obtener un libro
+
+Nos retorna un objeto de un libro específico libro con los autores y las categorías a las que pertenece el libro.
+
+**Método:** `GET`  
+**Endpoint:** `/api/Book/{id}`
+Donde `id` es el identicador del libro. `bookId`
+Nos retornará algo similar a:
+```json
+{
+  "dataList": [],
+  "singleData":  {
+      "bookId": 1,
+      "title": "La monja 2",
+      "description": "Aventura",
+      "publicationDate": "2024-10-05T23:22:06.889",
+      "isActive": true,
+      "authors": [
+        {
+          "authorId": 1,
+          "name": "Yunior Moreta",
+          "isActive": true
+        }
+      ],
+      "categories": [
+        {
+          "categoryId": 1,
+          "name": "Terror",
+          "isActive": true
+        },
+        {
+           ...
+        }
+      ]
+    },
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": true,
+  "message": null,
+  "errors": []
+}
+```
 ### Guardar un libro
 
 Para agregar un nuevo libro a la base de datos, utiliza el siguiente endpoint de la API:
@@ -427,3 +469,58 @@ Para agregar un nuevo libro a la base de datos, utiliza el siguiente endpoint de
 | `isActive`       | Boolean      | Indica si el libro está activo (true) o inactivo (false). |
 | `authorIds`      | Array        | Lista de identificadores de autores asociados al libro. |
 | `categoryIds`    | Array        | Lista de identificadores de categorías asociadas al libro. |
+
+### Actualizar un libro
+
+Para actualizar un nuevo libro a la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `PUT`  
+**Endpoint:** `/api/Book/{id}`
+
+#### Parámetros
+
+- **Path Parameter**: El ID del libro que deseas actualizar. Debe enviarse en la URL del endpoint.
+- **Request Body**: Debe enviarse en formato JSON con la siguiente estructura. La estructura debera contener la información a actualizar:
+
+```json
+{
+  "title": "string",                  // Título del libro
+  "description": "string",            // Descripción del libro
+  "publicationDate": "2024-10-07T01:18:08.333Z", // Fecha de publicación del libro (formato yyyy-MM-dd)
+  "isActive": true,                   // Indica si el libro está activo (true) o inactivo (false)
+  "authorIds": [                      // Lista de identificadores de autores asociados al libro
+    0                                 // Ejemplo: id del autor
+  ],
+  "categoryIds": [                    // Lista de identificadores de categorías asociadas al libro
+    0                                 // Ejemplo: id de la categoría
+  ]
+}
+```
+
+| Campo            | Tipo de dato | Descripción                                          |
+|------------------|--------------|-----------------------------------------------------|
+| `title`          | String       | Título del libro.                                   |
+| `description`    | String       | Descripción del libro.                              |
+| `publicationDate`| DateTime     | Fecha de publicación del libro (formato yyyy-MM-dd). |
+| `isActive`       | Boolean      | Indica si el libro está activo (true) o inactivo (false). |
+| `authorIds`      | Array        | Lista de identificadores de autores asociados al libro. |
+| `categoryIds`    | Array        | Lista de identificadores de categorías asociadas al libro. |
+
+
+### Eliminar un libro
+
+Para eliminar un libro de la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `DELETE`  
+**Endpoint:** `/api/Book/{id}`
+
+### Parámetros
+
+- **Path Parameter**: El ID del libro que deseas eliminar. Debe enviarse en la URL del endpoint.
+
+| Nombre | Descripción                       |
+|--------|-----------------------------------|
+| `id`   | Identificador único del libro a eliminar (requerido). Debe ser de tipo `integer`. |
+
+**NOTA**: Todos los endpoint darán la respuesta genérica independientemente si es satisfactoria o no.
+

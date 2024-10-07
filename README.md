@@ -266,7 +266,8 @@ En caso contrario:
 }
 ```
 
-###Refrecar el token
+### Refrecar el token
+
 Para refrescar el token solo hay que hacer una solicitud al siguiente enpoint:
 - `GET api/Auth/refresh-token?token={TU_TOKEN_ACTUAL}`
 Este retornara:
@@ -282,6 +283,7 @@ Este retornara:
 }
 ```
 ## Author
+
 - `GET /api/Author: ` Obtiene a todos los autores:
 ```json
 {
@@ -309,7 +311,7 @@ Este retornara:
   "errors": []
 }
 ```
-- `**POST /api/Author**` : Nos sirve para guardar un autor. Solo debemos enviar el siguiente json:
+- `POST /api/Author` : Nos sirve para guardar un autor. Solo debemos enviar el siguiente json:
 ```json
 {
   "name": "string",
@@ -318,17 +320,17 @@ Este retornara:
 }
 ```
 Nos dará la respuesta genérica en caso de ser o no exitoso.
-- `**GET /api/Author/{id}**`: Busca a un autor por su identificador único `authorId`.
-- `**PUT /api/Author/{id}**` Actualiza el autor. Debemos enviar el siguiente request body:
-`PUT /api/Author/1`
+- `GET /api/Author/{id}**`: Busca a un autor por su identificador único `authorId`.
+- `PUT /api/Author/{id}` Actualiza el autor. Debemos enviar el siguiente request body:
+`/api/Author/1`
 ```json
 {
-      "authorId": 1,
-      "name": "Yunior",
-      "lastName": "Carreras",
-      "isActive": true
-    }
+   "authorId": 1,
+   "name": "Yunior",
+   "lastName": "Carreras",
+   "isActive": true
+}
 ```
 Nos dará la respuesta genérica en caso de ser o no exitoso.
-- `**DELETE /api/Author/{id}**`: Nos permite eliminar un autor. Solo debemos de pasar su identificador único `authorId`.
+- `DELETE /api/Author/{id}`: Nos permite eliminar un autor. Solo debemos de pasar su identificador único `authorId`.
 

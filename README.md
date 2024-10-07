@@ -583,16 +583,13 @@ Para obtener un objeto de categoría disponible en la base de datos con un ident
 
 ```json
 {
-  "dataList": [
-    {
+  "dataList": [],
+  "singleData":  {
       "categoryId": 1,
       "name": "Terror",
       "isActive": true,
       "books": null
     },
-…
-  ],
-  "singleData": null,
   "thereIsError": false,
   "entityId": 0,
   "successful": true,
@@ -673,5 +670,318 @@ Para eliminar una categoría existente de la base de datos, utiliza el siguiente
 | Nombre | Tipo de Dato  | Descripción                                       |
 |--------|---------------|---------------------------------------------------|
 | `id`   | integer($int32) | Identificador único de la categoría a eliminar (requerido, en el path). |
+
+**NOTA**: Todos los endpoint darán la respuesta genérica independientemente si es satisfactoria o no.
+
+## Roles
+
+### Obtener todos los roles
+
+Para obtener una lista de todos los roles disponibles en la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `GET`  
+**Endpoint:** `/api/Role`
+
+#### Parámetros
+
+No se requieren parámetros para esta solicitud.
+
+#### Ejemplo de respuesta
+
+```json
+{
+  "dataList": [
+     {
+      "roleId": 1,
+      "roleName": "Administrador",
+      "isActive": true
+    },
+   …
+  ],
+  "singleData": null,
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": true,
+  "message": null,
+  "errors": []
+}
+```
+### Obtener un rol
+
+Para obtener un objeto de rol disponible en la base de datos con un identificador único, utiliza el siguiente endpoint de la API:
+
+**Método:** `GET`  
+**Endpoint:** `/api/Role/{id}`
+
+#### Parámetros
+
+- **Path Parameter**: El ID del rol que deseas obtener. Debe enviarse en la URL del endpoint.
+
+| Nombre | Descripción                       |
+|--------|-----------------------------------|
+| `id`   | Identificador único del rol  (requerido). Debe ser de tipo `integer`. 
+
+#### Ejemplo de respuesta
+
+```json
+{
+  "dataList": [],
+  "singleData":  {
+      "roleId": 1,
+      "roleName": "Administrador",
+      "isActive": true
+    },
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": true,
+  "message": null,
+  "errors": []
+}
+```
+### Crear un rol
+
+Para crear un nuevo rol en la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `POST`  
+**Endpoint:** `/api/Role`
+
+#### Parámetros
+
+No se requieren parámetros para esta solicitud, pero debes enviar el cuerpo de la solicitud en formato JSON.
+
+#### Cuerpo de la solicitud (Request body)
+
+El cuerpo de la solicitud debe tener la siguiente estructura en formato JSON:
+
+```json
+{
+  "roleName": "string",   // Nombre del rol
+  "isActive": true    // Indica si el rol está activo (true) o inactivo (false)
+}
+```
+###Datos
+
+| Campo        | Tipo de Dato | Descripción                                             |
+|--------------|--------------|--------------------------------------------------------|
+| `roleName`       | String       | Nombre del rol.                                |
+| `isActive`   | Boolean      | Indica si el rol está activo (true) o inactivo (false). |
+| `roleId` | Integer      | Identificador único del rol (en la respuesta). |
+
+### Actualizar un rol
+
+Para actualizar un rol existente en la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `PUT`  
+**Endpoint:** `/api/Role/{id}`
+
+#### Parámetros
+
+- **Path Parameter**: El ID del rol que deseas actualizar. Debe enviarse en la URL del endpoint.
+
+| Nombre | Tipo de dato  | Descripción                                       |
+|--------|---------------|---------------------------------------------------|
+| `id`   | integer($int32) | Identificador único del rol a actualizar (requerido, en el path). |
+
+#### Cuerpo de la solicitud (Request body)
+
+El cuerpo de la solicitud debe tener la siguiente estructura en formato JSON. Envia en el objeto la información que desas actualiza:
+
+```json
+{
+  "roleId": 0,      // Identificador único del rol.
+  "roleName": "string",     // Nuevo nombre del rol
+  "isActive": true      // Estado actualizado del rol (activo o inactivo)
+}
+```
+#### Consideraciones
+- El `id` en el path debe coincidir con el `roleId` en el cuerpo de la solicitud.
+- Si el campo `isActive` se establece en false, el rol será marcada como inactivo.
+
+### Eliminar un rol
+
+Para eliminar un rol existente de la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `DELETE`  
+**Endpoint:** `/api/Role/{id}`
+
+### Parámetros
+
+- **Path Parameter**: El ID del rol que deseas eliminar. Debe enviarse en la URL del endpoint.
+
+| Nombre | Tipo de Dato  | Descripción                                       |
+|--------|---------------|---------------------------------------------------|
+| `id`   | integer($int32) | Identificador único del rol a eliminar (requerido, en el path). |
+
+**NOTA**: Todos los endpoint darán la respuesta genérica independientemente si es satisfactoria o no.
+
+## Usuarios
+
+### Obtener todos los usuarios
+
+Para obtener una lista de todos los usuarios disponibles en la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `GET`  
+**Endpoint:** `/api/Users`
+
+#### Parámetros
+
+No se requieren parámetros para esta solicitud.
+
+#### Ejemplo de respuesta
+
+```json
+{
+  "dataList": [
+    {
+      "id": 1,
+      "name": "Yunior",
+      "lastName": "Moreta",
+      "password": null,
+      "email": "yunior@moreta.com",
+      "roleId": 1,
+      "isActive": true,
+      "role": {
+        "roleId": 1,
+        "roleName": "Administrador",
+        "isActive": true
+      }
+    },
+    ...
+  ],
+  "singleData": null,
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": true,
+  "message": null,
+  "errors": []
+}
+```
+### Obtener un usuario
+
+Para obtener un objeto de usuario disponible en la base de datos con un identificador único, utiliza el siguiente endpoint de la API:
+
+**Método:** `GET`  
+**Endpoint:** `/api/Users/{id}`
+
+#### Parámetros
+
+- **Path Parameter**: El ID del usuario que deseas obtener. Debe enviarse en la URL del endpoint.
+
+| Nombre | Descripción                       |
+|--------|-----------------------------------|
+| `id`   | Identificador único del usuario  (requerido). Debe ser de tipo `integer`. 
+
+#### Ejemplo de respuesta
+
+```json
+{
+  "dataList": [],
+  "singleData":  {
+      "id": 1,
+      "name": "Yunior",
+      "lastName": "Moreta",
+      "password": null,
+      "email": "yunior@moreta.com",
+      "roleId": 1,
+      "isActive": true,
+      "role": {
+        "roleId": 1,
+        "roleName": "Administrador",
+        "isActive": true
+      }
+    },
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": true,
+  "message": null,
+  "errors": []
+}
+```
+### Crear un usuario
+
+Para crear un nuevo usuario en la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `POST`  
+**Endpoint:** `/api/Users`
+
+#### Parámetros
+
+No se requieren parámetros para esta solicitud, pero debes enviar el cuerpo de la solicitud en formato JSON.
+
+#### Cuerpo de la solicitud (Request body)
+
+El cuerpo de la solicitud debe tener la siguiente estructura en formato JSON:
+
+```json
+{
+  "name": "string",       // Nombre del usuario
+  "lastName": "string",   // Apellido del usuario
+  "password": "string",   // Contraseña del usuario
+  "email": "string",      // Correo electrónico del usuario
+  "roleId": 0,            // Identificador del rol asignado al usuario
+  "isActive": true        // Indica si el usuario está activo o no (true o false)
+}
+```
+###Datos
+
+| Campo     | Tipo de Dato | Descripción                                         |
+|-----------|--------------|----------------------------------------------------|
+| `userId`  | Integer      | Identificador único del usuario (No es requerido para agregar).  |
+| `name`    | String       | Nombre del usuario.                                 |
+| `lastName`| String       | Apellido del usuario.                               |
+| `password`| String       | Contraseña del usuario.   |
+| `email`   | String       | Correo electrónico del usuario.                     |
+| `roleId`  | Integer      | Identificador del rol asignado al usuario.          |
+| `isActive`| Boolean      | Indica si el usuario está activo (true) o inactivo (false). |
+
+
+### Actualizar un usuario
+
+Para actualizar un usuario existente en la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `PUT`  
+**Endpoint:** `/api/Users/{id}`
+
+#### Parámetros
+
+- **Path Parameter**: El ID del usuario que deseas actualizar. Debe enviarse en la URL del endpoint.
+
+| Nombre | Tipo de dato  | Descripción                                       |
+|--------|---------------|---------------------------------------------------|
+| `id`   | integer($int32) | Identificador único del usuario a actualizar (requerido, en el path). |
+
+#### Cuerpo de la solicitud (Request body)
+
+El cuerpo de la solicitud debe tener la siguiente estructura en formato JSON. Envia en el objeto la información que desas actualiza:
+
+```json
+{
+   "userId": 0,      // Identificador único del usuario a actualizar.
+  "name": "string",       // Nombre del usuario a actualizar.
+  "lastName": "string",   // Apellido del usuario a actualizar.
+  "password": "string",   // Contraseña del usuario a actualizar
+  "email": "string",      // Correo electrónico del usuario a actualizar.
+  "roleId": 0,            // Identificador del rol asignado al usuario a actualizar.
+  "isActive": true        // Indica si el usuario está activo o no (true o false) a actualizar.
+}
+```
+#### Consideraciones
+- El `id` en el path debe coincidir con el `userId` en el cuerpo de la solicitud.
+- Si el campo `isActive` se establece en false, el usuario será marcada como inactivo.
+
+### Eliminar un usaurio
+
+Para eliminar un usuario existente de la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `DELETE`  
+**Endpoint:** `/api/Users/{id}`
+
+### Parámetros
+
+- **Path Parameter**: El ID del usuario que deseas eliminar. Debe enviarse en la URL del endpoint.
+
+| Nombre | Tipo de Dato  | Descripción                                       |
+|--------|---------------|---------------------------------------------------|
+| `id`   | integer($int32) | Identificador único del rol a eliminar (requerido, en el path). |
 
 **NOTA**: Todos los endpoint darán la respuesta genérica independientemente si es satisfactoria o no.

@@ -15,3 +15,4 @@ C:\Users\Alexander\source\repos\BookHunt\ApplicationLayer\bin\Debug\net8.0\Domai
 C:\Users\Alexander\source\repos\BookHunt\ApplicationLayer\bin\Debug\net8.0\InfrastructureLayer.pdb
 C:\Users\Alexander\source\repos\BookHunt\ApplicationLayer\obj\Debug\net8.0\ApplicationLayer.csproj.AssemblyReference.cache
 C:\Users\Alexander\source\repos\BookHunt\ApplicationLayer\obj\Debug\net8.0\Applicat.033E422A.Up2Date
+C:\Users\Alexander\source\repos\BookHunt\ApplicationLayer\obj\Debug\net8.0\ApplicationLayer.sourcelink.json

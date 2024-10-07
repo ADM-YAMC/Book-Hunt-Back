@@ -15,3 +15,4 @@ C:\Users\Alexander\source\repos\BookHunt\RepositoryLayer\obj\Debug\net8.0\refint
 C:\Users\Alexander\source\repos\BookHunt\RepositoryLayer\obj\Debug\net8.0\InfrastructureLayer.pdb
 C:\Users\Alexander\source\repos\BookHunt\RepositoryLayer\obj\Debug\net8.0\InfrastructureLayer.genruntimeconfig.cache
 C:\Users\Alexander\source\repos\BookHunt\RepositoryLayer\obj\Debug\net8.0\ref\InfrastructureLayer.dll
+C:\Users\Alexander\source\repos\BookHunt\RepositoryLayer\obj\Debug\net8.0\InfrastructureLayer.sourcelink.json

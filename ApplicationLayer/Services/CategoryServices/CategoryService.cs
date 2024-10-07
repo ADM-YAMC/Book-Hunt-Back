@@ -24,6 +24,7 @@ namespace ApplicationLayer.Services.CategoryServices
             try
             {
                 response.DataList = await _commonProcess.GetAllAsync();
+                response.Successful = true;
             }
             catch (Exception e)
             {
@@ -41,6 +42,7 @@ namespace ApplicationLayer.Services.CategoryServices
                 if (res != null)
                 {
                     response.SingleData = res;
+                    response.Successful = true;
                 }
                 else
                 {
@@ -94,7 +96,8 @@ namespace ApplicationLayer.Services.CategoryServices
             try
             {
                 await _commonProcess.DeleteAsync(id);
-                response.Message = "Se elimino la información de la categoría correctamente......";
+                response.Message = "Se elimino la información de la categoría correctamente...";
+                response.Successful = true;
 
             }
             catch (Exception e)

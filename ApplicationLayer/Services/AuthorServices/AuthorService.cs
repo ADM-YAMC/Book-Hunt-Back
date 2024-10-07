@@ -25,6 +25,7 @@ namespace ApplicationLayer.Services.AuthorServices
             try
             {
                 response.DataList = await _commonProcess.GetAllAsync();
+                response.Successful = true;
             }
             catch (Exception e)
             {
@@ -42,6 +43,7 @@ namespace ApplicationLayer.Services.AuthorServices
                 if (res != null)
                 {
                     response.SingleData = res;
+                    response.Successful = true;
                 }
                 else
                 {
@@ -96,6 +98,7 @@ namespace ApplicationLayer.Services.AuthorServices
             {
                 await _commonProcess.DeleteAsync(id);
                 response.Message = "Se elimino la información del autor correctamente...";
+                response.Successful = true;
             }
             catch (Exception e)
             {

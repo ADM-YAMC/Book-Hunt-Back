@@ -143,3 +143,4 @@ C:\Users\Alexander\source\repos\BookHunt\BookHunt\bin\Debug\net8.0\ApplicationLa
 C:\Users\Alexander\source\repos\BookHunt\BookHunt\bin\Debug\net8.0\ApplicationLayer.pdb
 C:\Users\Alexander\source\repos\BookHunt\BookHunt\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Users\Alexander\source\repos\BookHunt\BookHunt\bin\Debug\net8.0\Microsoft.Bcl.TimeProvider.dll
+C:\Users\Alexander\source\repos\BookHunt\BookHunt\obj\Debug\net8.0\BookHunt.sourcelink.json

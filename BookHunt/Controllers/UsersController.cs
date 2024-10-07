@@ -30,12 +30,12 @@ namespace BookHunt.Controllers
         public async Task<ActionResult<Response<string>>> AddUserAsync(User user)
             => await _userService.AddUserAsync(user);
         [HttpPut("{id}")]
-        [Authorize]
+       [Authorize]
         public async Task<ActionResult<Response<string>>> UpdateUserAsync(int id, User user)
             => await _userService.UpdateUserAsync(id, user);
 
         [HttpDelete("{id}")]
-        [Authorize]
+       [Authorize]
         public async Task<Response<string>> DeleteUserAsync(int id)
             => await _userService.DeleteUserAsync(id);
         

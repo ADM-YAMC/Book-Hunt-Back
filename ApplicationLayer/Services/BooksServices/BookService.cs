@@ -25,6 +25,7 @@ namespace ApplicationLayer.Services.BooksServices
             try
             {
                 response.DataList = await _book.GetBookAsync();
+                response.Successful = true;
             }
             catch (Exception e)
             {
@@ -42,6 +43,7 @@ namespace ApplicationLayer.Services.BooksServices
                 if (res != null)
                 {
                     response.SingleData = res;
+                    response.Successful = true;
                 }
                 else
                 {
@@ -62,6 +64,7 @@ namespace ApplicationLayer.Services.BooksServices
             {
                 await _book.AddBookAsync(entry);
                 response.Message = "Se guardo la información del libro correctamente...";
+                response.Successful = true;
             }
             catch (Exception e)
             {

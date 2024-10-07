@@ -26,6 +26,7 @@ namespace ApplicationLayer.Services.UserServices
             try
             {
                 response.DataList = await _commonProcess.GetAllAsync();
+                response.Successful = true;
             }
             catch (Exception e)
             {
@@ -43,6 +44,7 @@ namespace ApplicationLayer.Services.UserServices
                 if (res != null)
                 {
                     response.SingleData = res;
+                    response.Successful = true;
                 }
                 else
                 {
@@ -100,6 +102,7 @@ namespace ApplicationLayer.Services.UserServices
             {
                 await _commonProcess.DeleteAsync(id);   
                 response.Message = "El usuario eliminado correctamente...";
+                response.Successful = true;
 
             }
             catch (Exception e)

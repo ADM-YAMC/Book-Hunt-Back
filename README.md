@@ -342,6 +342,10 @@ Nos dará la respuesta genérica en caso de ser o no exitoso.
    "isActive": true
 }
 ```
+#### Consideraciones
+- El `id` en el path debe coincidir con el `authorId` en el cuerpo de la solicitud.
+- Si el campo `isActive` se establece en false, el autor será marcada como inactivo.
+- 
 Nos dará la respuesta genérica en caso de ser o no exitoso.
 - `DELETE /api/Author/{id}`: Nos permite eliminar un autor. Solo debemos de pasar su identificador único `authorId`.
 
@@ -506,6 +510,8 @@ Para actualizar un nuevo libro a la base de datos, utiliza el siguiente endpoint
 | `authorIds`      | Array        | Lista de identificadores de autores asociados al libro. |
 | `categoryIds`    | Array        | Lista de identificadores de categorías asociadas al libro. |
 
+#### Consideraciones
+- Si el campo `isActive` se establece en false, el libro será marcado como inactivo.
 
 ### Eliminar un libro
 
@@ -524,3 +530,148 @@ Para eliminar un libro de la base de datos, utiliza el siguiente endpoint de la 
 
 **NOTA**: Todos los endpoint darán la respuesta genérica independientemente si es satisfactoria o no.
 
+## Categorías
+
+### Obtener todas las categorías
+
+Para obtener una lista de todas las categorías disponibles en la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `GET`  
+**Endpoint:** `/api/Category`
+
+#### Parámetros
+
+No se requieren parámetros para esta solicitud.
+
+#### Ejemplo de respuesta
+
+```json
+{
+  "dataList": [
+    {
+      "categoryId": 1,
+      "name": "Terror",
+      "isActive": true,
+      "books": null
+    },
+…
+  ],
+  "singleData": null,
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": true,
+  "message": null,
+  "errors": []
+}
+```
+### Obtener una categoría
+
+Para obtener un objeto de categoría disponible en la base de datos con un identificador único, utiliza el siguiente endpoint de la API:
+
+**Método:** `GET`  
+**Endpoint:** `/api/Category/{id}`
+
+#### Parámetros
+
+- **Path Parameter**: El ID de la categoría que deseas obtener. Debe enviarse en la URL del endpoint.
+
+| Nombre | Descripción                       |
+|--------|-----------------------------------|
+| `id`   | Identificador único de la categoría  (requerido). Debe ser de tipo `integer`. 
+
+#### Ejemplo de respuesta
+
+```json
+{
+  "dataList": [
+    {
+      "categoryId": 1,
+      "name": "Terror",
+      "isActive": true,
+      "books": null
+    },
+…
+  ],
+  "singleData": null,
+  "thereIsError": false,
+  "entityId": 0,
+  "successful": true,
+  "message": null,
+  "errors": []
+}
+```
+### Crear una categoría
+
+Para crear una nueva categoría en la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `POST`  
+**Endpoint:** `/api/Category`
+
+#### Parámetros
+
+No se requieren parámetros para esta solicitud, pero debes enviar el cuerpo de la solicitud en formato JSON.
+
+#### Cuerpo de la solicitud (Request body)
+
+El cuerpo de la solicitud debe tener la siguiente estructura en formato JSON:
+
+```json
+{
+  "name": "string",   // Nombre de la nueva categoría
+  "isActive": true    // Indica si la categoría está activa (true) o inactiva (false)
+}
+```
+###Datos
+
+| Campo        | Tipo de Dato | Descripción                                             |
+|--------------|--------------|--------------------------------------------------------|
+| `name`       | String       | Nombre de la categoría.                                |
+| `isActive`   | Boolean      | Indica si la categoría está activa (true) o inactiva (false). |
+| `categoryId` | Integer      | Identificador único de la categoría (en la respuesta). |
+
+### Actualizar una categoría
+
+Para actualizar una categoría existente en la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `PUT`  
+**Endpoint:** `/api/Category/{id}`
+
+#### Parámetros
+
+- **Path Parameter**: El ID del categoría que deseas actualizar. Debe enviarse en la URL del endpoint.
+
+| Nombre | Tipo de Dato  | Descripción                                       |
+|--------|---------------|---------------------------------------------------|
+| `id`   | integer($int32) | Identificador único de la categoría a actualizar (requerido, en el path). |
+
+#### Cuerpo de la solicitud (Request Body)
+
+El cuerpo de la solicitud debe tener la siguiente estructura en formato JSON. Envia en el objeto la información que desas actualiza:
+
+```json
+{
+  "categoryId": 0,      // Identificador único de la categoría
+  "name": "string",     // Nuevo nombre de la categoría
+  "isActive": true      // Estado actualizado de la categoría (activo o inactivo)
+}
+```
+#### Consideraciones
+- El `id` en el path debe coincidir con el `categoryId` en el cuerpo de la solicitud.
+- Si el campo `isActive` se establece en false, la categoría será marcada como inactiva.
+
+### Eliminar una categoría
+
+Para eliminar una categoría existente de la base de datos, utiliza el siguiente endpoint de la API:
+
+**Método:** `DELETE`  
+**Endpoint:** `/api/Category/{id}`
+
+### Parámetros
+
+- **Path Parameter**: El ID del categoría que deseas eliminar. Debe enviarse en la URL del endpoint.
+
+| Nombre | Tipo de Dato  | Descripción                                       |
+|--------|---------------|---------------------------------------------------|
+| `id`   | integer($int32) | Identificador único de la categoría a eliminar (requerido, en el path). |
+
+**NOTA**: Todos los endpoint darán la respuesta genérica independientemente si es satisfactoria o no.

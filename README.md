@@ -127,7 +127,7 @@ El encabezado debe tener el siguiente formato:
 Authorization: Bearer `<tu_token_jwt>`
 
 
-Donde `<tu_token_jwt>` es el token que obtuviste al autenticarte.
+Donde `<tu_token_jwt>` es el token que obtuviste al autenticarte. [Autenticarme](#autenticación)
 
 ### Endpoints sin autorización
 

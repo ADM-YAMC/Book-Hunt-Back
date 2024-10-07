@@ -133,8 +133,8 @@ Donde `<tu_token_jwt>` es el token que obtuviste al autenticarte.
 
 Los siguientes dos endpoints no requieren autenticación, ya que son necesarios para crear el primer usuario administrador y asignarle un rol:
 
-- `POST /api/Users`: Crea el primer usuario de la aplicación.
-- `POST /api/Role`: Crea los roles iniciales necesarios para la gestión de usuarios.
+- `POST /api/Users`: Crea el primer usuario de la aplicación. [Crear un usuario](#crear-un-usuario)
+- `POST /api/Role`: Crea los roles iniciales necesarios para la gestión de usuarios. [Crear un rol](#crear-un-rol)
 
 ## Estructura de las respuestas
 

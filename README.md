@@ -265,3 +265,20 @@ En caso contrario:
   "errors": []
 }
 ```
+
+###Refrecar el token
+Para refrescar el token solo hay que hacer una solicitud al siguiente enpoint:
+- `GET api/Auth/refresh-token?token={TU_TOKEN_ACTUAL}`
+Este retornara:
+```json
+{
+  "dataList": null,
+  "singleData": "eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZ… ",
+  "thereIsError": false,
+  "entityId": 0,
+  "successful":true,
+  "message": null,
+  "errors": []
+}
+```
+

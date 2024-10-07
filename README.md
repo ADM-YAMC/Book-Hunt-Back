@@ -282,7 +282,18 @@ Este retornara:
   "errors": []
 }
 ```
-## Author
+## Autor
+
+### Estructura de datos
+
+| Campo       | Tipo de dato | Descripción                                          |
+|-------------|--------------|-----------------------------------------------------|
+| `authorId`  | Integer      | Identificador único del autor.                      |
+| `name`      | String       | Nombre del autor.                                   |
+| `lastName`  | String       | Apellido del autor.                                 |
+| `isActive`  | Boolean      | Indica si el autor está activo (true) o inactivo (false). |
+
+### Posibles solicitudes
 
 - `GET /api/Author: ` Obtiene a todos los autores:
 ```json

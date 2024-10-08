@@ -103,7 +103,7 @@ namespace ApplicationLayer.Services.Auth
             catch (Exception ex) 
             {
                 response.Errors.Add(ex.Message);
-                response.Message = "No se pudo generar el token...";
+                response.Message = "No se pudo generar el token... Intentelo de nuevo.";
             }
 
             return response;

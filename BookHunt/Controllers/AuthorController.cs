@@ -29,7 +29,6 @@ namespace BookHunt.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult<Response<string>>> UpdateAuthorAsync(int id, Author entry)
             => await _service.UpdateAuthorAsync(id, entry);
-
         [HttpDelete("{id}")]
         public async Task<Response<string>> DeleteAuthorAsync(int id)
             => await _service.DeleteAuthorAsync(id);

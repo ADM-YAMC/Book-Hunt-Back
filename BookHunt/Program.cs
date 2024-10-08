@@ -31,16 +31,24 @@ builder.Services.AddDbContext<BookHuntDBContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("BookHuntDB"));
     options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+builder.Services.AddAuthentication(
+        options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
         .AddJwtBearer(options =>
         {
+            options.RequireHttpsMetadata = false;
+            options.SaveToken = true;
             options.TokenValidationParameters = new TokenValidationParameters
             {
                 ValidateIssuer = false,  
                 ValidateAudience = false,  
                 ValidateLifetime = true,  
                 ValidateIssuerSigningKey = true, 
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+                ClockSkew = TimeSpan.Zero,
             };
         });
 
@@ -76,6 +84,14 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors(builder =>
+{
+    builder.SetIsOriginAllowed(origin => true)
+           .AllowAnyMethod()
+           .AllowAnyHeader()
+           .AllowCredentials();
+});
 
 app.MapControllers();
 

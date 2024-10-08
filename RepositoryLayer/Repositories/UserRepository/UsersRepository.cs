@@ -99,7 +99,7 @@ namespace ApplicationLayer.UserServices
 
             if (user == null) 
             {
-                return (false, "El usuario o la contraseña son incorrectos...", null);
+                return (false, "Los datos ingresados no son correctos...", null);
             }
             return (true, "", user);
         }

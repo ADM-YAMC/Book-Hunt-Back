@@ -77,6 +77,7 @@ namespace ApplicationLayer.Services.Auth
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false,
+                    ValidateLifetime = false,
                     ClockSkew = TimeSpan.Zero 
                 }, out SecurityToken validatedToken);
 
@@ -96,6 +97,7 @@ namespace ApplicationLayer.Services.Auth
                 };
                 var newJwtToken = GenerateJwtToken(user);
                 response.SingleData = newJwtToken;
+                response.Successful = true;
                 
             }
             catch (Exception ex) 
@@ -112,23 +114,54 @@ namespace ApplicationLayer.Services.Auth
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-            var claims = new[]
-            {
-                new Claim("Id", user.Id.ToString()),
-                new Claim("Name",user.Name),
-                new Claim("LastName", user.LastName),
-                new Claim("Email", user.Email),
-                new Claim("RoleId", user.RoleId.ToString()),
-                new Claim("RoleName", user.Role!.RoleName),
-                new Claim("IsActive", user.IsActive.ToString())    
-            };
-            var token = new JwtSecurityToken(
-                    claims: claims,
-                    notBefore: DateTime.Now,
-                    expires: DateTime.Now.AddMinutes(60),
-                    signingCredentials: creds);
+            //var claims = new[]
+            //{
+            //    new Claim("Id", user.Id.ToString()),
+            //    new Claim("Name",user.Name),
+            //    new Claim("LastName", user.LastName),
+            //    new Claim("Email", user.Email),
+            //    new Claim("RoleId", user.RoleId.ToString()),
+            //    new Claim("RoleName", user.Role!.RoleName),
+            //    new Claim("IsActive", user.IsActive.ToString())    
+            //};
+            //var token = new JwtSecurityToken(
+            //        claims: claims,
+            //        notBefore: DateTime.Now,
+            //        expires: DateTime.Now.AddMinutes(2),
+            //        signingCredentials: creds);
 
-                return new JwtSecurityTokenHandler().WriteToken(token);
+            //    return new JwtSecurityTokenHandler().WriteToken(token);
+
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+            
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(new[] {
+                    new Claim("Id", user.Id.ToString()),
+                    new Claim("Name",user.Name),
+                    new Claim("LastName", user.LastName),
+                    new Claim("Email", user.Email),
+                    new Claim("RoleId", user.RoleId.ToString()),
+                    new Claim("RoleName", user.Role!.RoleName),
+                    new Claim("IsActive", user.IsActive.ToString())
+                }),
+                NotBefore = DateTimeRD().currentDate,
+                Expires = DateTimeRD().expires,
+                SigningCredentials = creds
+            };
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+            return tokenHandler.WriteToken(token);
         }
+        public (DateTime currentDate, DateTime expires) DateTimeRD()
+        {
+            TimeZoneInfo dominicanTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Western Standard Time");
+            DateTime currentDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, dominicanTimeZone);
+            var expirationHour =1;
+            var expires = currentDate.AddMinutes((double)expirationHour);
+            return (currentDate, expires);
+        }
+
     }
 }

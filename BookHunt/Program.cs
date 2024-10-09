@@ -43,10 +43,10 @@ builder.Services.AddAuthentication(
             options.SaveToken = true;
             options.TokenValidationParameters = new TokenValidationParameters
             {
-                ValidateIssuer = false,  
-                ValidateAudience = false,  
-                ValidateLifetime = true,  
-                ValidateIssuerSigningKey = true, 
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
                 ClockSkew = TimeSpan.Zero,
             };

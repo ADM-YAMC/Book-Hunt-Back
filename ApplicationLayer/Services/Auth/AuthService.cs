@@ -1,18 +1,11 @@
-﻿using ApplicationLayer.Services.UserServices;
-using DomainLayer.DTO;
-using DomainLayer.Utilities;
+﻿using DomainLayer.DTO;
 using DomainLayer.Models;
+using InfrastructureLayer.Repositories.UserRepository;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using System.Threading.Tasks;
-using Azure.Core;
-using InfrastructureLayer.Repositories.UserRepository;
 
 namespace ApplicationLayer.Services.Auth
 {
@@ -27,11 +20,11 @@ namespace ApplicationLayer.Services.Auth
         }
         public async Task<Response<AuthAccount>> Authenticate(UserCredentials credentials)
         {
-            var response = new Response<AuthAccount>(); 
+            var response = new Response<AuthAccount>();
             try
             {
-                 var user = await _userService.Login(credentials.Email,credentials.Password);
-                
+                var user = await _userService.Login(credentials.Email, credentials.Password);
+
                 if (user.IsSuccess)
                 {
                     var dataUser = user.user;
@@ -46,7 +39,7 @@ namespace ApplicationLayer.Services.Auth
                         IsActive = dataUser.IsActive,
                         Token = GenerateJwtToken(dataUser),
                     };
-                    response.Successful = true; 
+                    response.Successful = true;
                 }
                 else
                 {
@@ -68,7 +61,7 @@ namespace ApplicationLayer.Services.Auth
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]!);
-            var response = new Response<string>();  
+            var response = new Response<string>();
             try
             {
                 tokenHandler.ValidateToken(token, new TokenValidationParameters
@@ -78,14 +71,14 @@ namespace ApplicationLayer.Services.Auth
                     ValidateIssuer = false,
                     ValidateAudience = false,
                     ValidateLifetime = false,
-                    ClockSkew = TimeSpan.Zero 
+                    ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
 
-              
+
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = jwtToken.Claims.First(x => x.Type == "Id").Value;
 
-                var user = new User 
+                var user = new User
                 {
                     Id = int.Parse(userId),
                     Name = jwtToken.Claims.First(x => x.Type == "Name").Value,
@@ -98,16 +91,16 @@ namespace ApplicationLayer.Services.Auth
                 var newJwtToken = GenerateJwtToken(user);
                 response.SingleData = newJwtToken;
                 response.Successful = true;
-                
+
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 response.Errors.Add(ex.Message);
                 response.Message = "No se pudo generar el token... Intentelo de nuevo.";
             }
 
             return response;
-            
+
         }
 
         private string GenerateJwtToken(User user)
@@ -134,7 +127,7 @@ namespace ApplicationLayer.Services.Auth
 
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            
+
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -158,7 +151,7 @@ namespace ApplicationLayer.Services.Auth
         {
             TimeZoneInfo dominicanTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Western Standard Time");
             DateTime currentDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, dominicanTimeZone);
-            var expirationHour =60;
+            var expirationHour = 60;
             var expires = currentDate.AddMinutes((double)expirationHour);
             return (currentDate, expires);
         }

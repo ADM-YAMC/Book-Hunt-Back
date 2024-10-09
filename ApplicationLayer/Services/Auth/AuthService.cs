@@ -158,7 +158,7 @@ namespace ApplicationLayer.Services.Auth
         {
             TimeZoneInfo dominicanTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Western Standard Time");
             DateTime currentDate = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, dominicanTimeZone);
-            var expirationHour =1;
+            var expirationHour =60;
             var expires = currentDate.AddMinutes((double)expirationHour);
             return (currentDate, expires);
         }

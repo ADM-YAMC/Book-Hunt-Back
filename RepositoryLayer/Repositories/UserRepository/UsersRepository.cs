@@ -1,5 +1,4 @@
-﻿using DomainLayer.DTO;
-using DomainLayer.Models;
+﻿using DomainLayer.Models;
 using DomainLayer.Utilities;
 using InfrastructureLayer;
 using InfrastructureLayer.Repositories.Commons;
@@ -20,15 +19,15 @@ namespace ApplicationLayer.UserServices
             var users = await _context
                 .Users
                 .Include(u => u.Role)
-                .Select(s=> new User 
-                { 
+                .Select(s => new User
+                {
                     Id = s.Id,
                     Name = s.Name,
                     LastName = s.LastName,
                     Email = s.Email,
                     Role = s.Role,
                     IsActive = s.IsActive,
-                    RoleId = s.RoleId,  
+                    RoleId = s.RoleId,
 
                 })
                 .ToListAsync();
@@ -40,7 +39,7 @@ namespace ApplicationLayer.UserServices
             var res = await _context
                 .Users
                 .Include(u => u.Role)
-                .FirstOrDefaultAsync(u=> u.Id == id);
+                .FirstOrDefaultAsync(u => u.Id == id);
             if (res != null)
             {
                 res.Password = null;
@@ -69,12 +68,27 @@ namespace ApplicationLayer.UserServices
             var exists = _context.Users.Any(c => c.Email == entry.Email && c.Id != entry.Id);
             if (exists)
             {
-                return (false, "Ya se ecuentra un usuario registrado con este mismo correo...");
+                return (false, "Ya se encuentra un usuario registrado con este mismo correo...");
+            }
+            var userInDb = await _context.Users.FindAsync(entry.Id);
+            if (userInDb == null)
+            {
+                return (false, "Usuario no encontrado...");
+            }
+            if (string.IsNullOrEmpty(entry.Password))
+            {
+                entry.Password = userInDb.Password;
+            }
+            else
+            {
+                userInDb.Password = Encode.MD5(entry.Password);
             }
             _context.Users.Update(entry);
             await _context.SaveChangesAsync();
+
             return (true, "El usuario actualizado correctamente...");
         }
+
 
         public async Task DeleteAsync(int id)
         {
@@ -84,7 +98,8 @@ namespace ApplicationLayer.UserServices
             {
                 _context.Users.Remove(user);
                 await _context.SaveChangesAsync();
-            }else
+            }
+            else
             {
                 throw new ArgumentOutOfRangeException("entity");
             }
@@ -95,9 +110,9 @@ namespace ApplicationLayer.UserServices
             var user = await _context
                 .Users
                 .Include(u => u.Role)
-                .FirstOrDefaultAsync(u=>u.Email == username && u.Password == Encode.MD5(password));
+                .FirstOrDefaultAsync(u => u.Email == username && u.Password == Encode.MD5(password));
 
-            if (user == null) 
+            if (user == null)
             {
                 return (false, "Los datos ingresados no son correctos...", null);
             }

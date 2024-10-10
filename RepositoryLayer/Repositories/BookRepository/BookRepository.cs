@@ -30,6 +30,7 @@ namespace InfrastructureLayer.Repositories.BookRepository
                         Title = b.Title,
                         Description = b.Description,
                         PublicationDate = b.PublicationDate,
+                        UrlImageBook = b.UrlImageBook,
                         IsActive = b.IsActive,
                         Authors = b.Authors.Select(ba => new AuthorDto
                         {
@@ -60,6 +61,7 @@ namespace InfrastructureLayer.Repositories.BookRepository
                         Title = b.Title,
                         Description = b.Description,
                         PublicationDate = b.PublicationDate,
+                        UrlImageBook = b.UrlImageBook,
                         IsActive = b.IsActive,
                         Authors = b.Authors.Select(ba => new AuthorDto
                         {
@@ -87,6 +89,7 @@ namespace InfrastructureLayer.Repositories.BookRepository
                 Description = bookDto.Description,
                 PublicationDate = bookDto.PublicationDate,
                 IsActive = bookDto.IsActive,
+                UrlImageBook = bookDto.UrlImageBook,
                 Authors = bookDto.AuthorIds.Select(id => new BookAuthor { AuthorId = id, IsActive = bookDto.IsActive }).ToList(),
                 Categories = bookDto.CategoryIds.Select(id => new BookCategory { CategoryId = id, IsActive = bookDto.IsActive }).ToList(),
             };
@@ -122,11 +125,11 @@ namespace InfrastructureLayer.Repositories.BookRepository
                     return (false, "Ya existe un libre con este mismo título...");
                 }
 
-            book.Title = bookDto.Title;
+                book.Title = bookDto.Title;
                 book.Description = bookDto.Description;
                 book.PublicationDate = bookDto.PublicationDate;
                 book.IsActive = bookDto.IsActive;
-
+                book.UrlImageBook = bookDto.UrlImageBook;
                 var temporalListBookAuthors = new List<BookAuthor>();
 
                 var autoresEliminados = book.Authors

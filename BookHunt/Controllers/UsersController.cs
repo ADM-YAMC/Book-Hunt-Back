@@ -19,7 +19,7 @@ namespace BookHunt.Controllers
             _userService = userService;
         }
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         public async Task<ActionResult<Response<User>>> GetUsersAsync()
             => await _userService.GetUsersAsync();
         [HttpGet("{id}")]

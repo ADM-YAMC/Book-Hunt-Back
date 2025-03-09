@@ -74,7 +74,6 @@ namespace ApplicationLayer.Services.Auth
                     ClockSkew = TimeSpan.Zero
                 }, out SecurityToken validatedToken);
 
-
                 var jwtToken = (JwtSecurityToken)validatedToken;
                 var userId = jwtToken.Claims.First(x => x.Type == "Id").Value;
 
@@ -107,25 +106,7 @@ namespace ApplicationLayer.Services.Auth
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Jwt:Key"]!));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-            //var claims = new[]
-            //{
-            //    new Claim("Id", user.Id.ToString()),
-            //    new Claim("Name",user.Name),
-            //    new Claim("LastName", user.LastName),
-            //    new Claim("Email", user.Email),
-            //    new Claim("RoleId", user.RoleId.ToString()),
-            //    new Claim("RoleName", user.Role!.RoleName),
-            //    new Claim("IsActive", user.IsActive.ToString())    
-            //};
-            //var token = new JwtSecurityToken(
-            //        claims: claims,
-            //        notBefore: DateTime.Now,
-            //        expires: DateTime.Now.AddMinutes(2),
-            //        signingCredentials: creds);
-
-            //    return new JwtSecurityTokenHandler().WriteToken(token);
-
-
+          
             var tokenHandler = new JwtSecurityTokenHandler();
 
 
@@ -147,6 +128,7 @@ namespace ApplicationLayer.Services.Auth
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
         public (DateTime currentDate, DateTime expires) DateTimeRD()
         {
             TimeZoneInfo dominicanTimeZone = TimeZoneInfo.FindSystemTimeZoneById("SA Western Standard Time");

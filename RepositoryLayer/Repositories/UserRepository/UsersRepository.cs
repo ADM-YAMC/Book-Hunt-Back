@@ -93,7 +93,7 @@ namespace ApplicationLayer.UserServices
         public async Task DeleteAsync(int id)
         {
 
-            var user = await _context.Users.FindAsync(id);
+            var user = await _context.Set<User>().FindAsync(id);
             if (user != null)
             {
                 _context.Users.Remove(user);

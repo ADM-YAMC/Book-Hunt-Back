@@ -1,6 +1,6 @@
 # Book-Hunt-Back
 
-Book-Hunt-Back es una aplicación backend que utiliza la arquitectura Onion con Code First en Entity Framework Core. Este README detalla los pasos para configurar, ejecutar y manejar la base de datos correctamente.
+Book-Hunt-Back es una aplicación backend que utiliza la arquitectura Onion con Code First en Entity Framework Core. Este README detalla los pasos para configurar, ejecutar y manejar la base de datos correctamente..
 
 ## Estructura del proyecto
 
